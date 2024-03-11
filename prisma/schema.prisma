@@ -22,10 +22,12 @@ model Book {
   categoryId  Int
   category    Category @relation(fields: [categoryId], references: [id])
   language    String
+  createdAt   DateTime @default(now())
 }
 
 model Category {
-  id    Int    @id @default(autoincrement())
-  name  String
-  books Book[]
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  books     Book[]
 }
