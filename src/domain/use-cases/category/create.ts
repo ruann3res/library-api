@@ -1,4 +1,4 @@
-import { DataAlreadyExistsError } from "@/domain/entities/errors";
+import { BadRequestError } from "@/domain/entities/errors";
 import { CategoryRepository } from "@/infrastructure/repository";
 
 
@@ -11,7 +11,7 @@ export const setupCategoryCreateUseCase: Setup = (categoryRepository) => async (
 
     const categoryAlreadyExists = await categoryRepository.getByName(name);
     if (categoryAlreadyExists) {
-        throw new DataAlreadyExistsError(`JA EXISTE UMA CATEGORIA '${name}'`)
+        throw new BadRequestError(`JA EXISTE UMA CATEGORIA '${name}'`)
     }
 
     await categoryRepository.create(name);

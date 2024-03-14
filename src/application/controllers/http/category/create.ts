@@ -2,6 +2,7 @@ import { Request, Response, badRequest, ok } from '@/application/helpers';
 import { Controller } from '@/application/controllers/http';
 import { CategoryCreateUseCase } from '@/domain/use-cases';
 import { ValidationBuilder, Validator } from '@/application/validation';
+import { BadRequestError } from '@/domain/entities/errors';
 
 
 interface HttpRequest {
@@ -22,7 +23,7 @@ export class CategoryCreateController extends Controller {
             await this.categoryCreateUseCase({ ...body });
             return ok(true);
         } catch (error) {
-            console.log(error)
+            if (error instanceof BadRequestError) return badRequest(error);
             throw error;
         }
     }
