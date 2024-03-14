@@ -16,8 +16,9 @@ export interface Response<T = any> {
     result: T
 }
 
-export interface Request<T = any> {
-    body: T
+export interface Request<T = any, Q = any> {
+    body: T,
+    query: Q,
 }
 
 export const ok = <T = any>(result: T): Response<T> => ({
